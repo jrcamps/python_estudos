@@ -27,7 +27,6 @@ class Cpf:
         mascara = CPF()
         return mascara.mask(self.cpf)
 
-# TESTANDO
-    
+# TESTE
 teste_cpf = Cpf('44705391802')
 print(teste_cpf)
