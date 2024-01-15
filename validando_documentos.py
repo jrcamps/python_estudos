@@ -1,32 +1,69 @@
 """
-Validação - CPF deve contem 11 dígitos e utilizar biblioteca de validação
+Validação CPF - Deve contem 11 dígitos e utilizar biblioteca de validação
 Máscara - 000.000.000-00
+
+Validação CNPJ - Deve contem 14 dígitos e utilizar biblioteca de validação
+Máscara - 00.000.000/0000-00
 """
 
-from validate_docbr import CPF
+from validate_docbr import CPF,CNPJ
 
-class Cpf:
-    def __init__(self,cpf):
-        documento = str(cpf)
-        if self.validar_cpf(documento):
+class Documento:
+    @staticmethod
+    def criar_documento(documento):
+        if len(documento) == 11:
+            return CriarCPF(documento)
+        elif len(documento) == 14:
+            return CriarCNPJ(documento)
+        else:
+            raise ValueError('Quantidade de digitos incorreta!')
+        
+class CriarCPF():
+    def __init__(self, documento):
+        documento = str(documento)
+        if self.validar(documento):
             self.cpf = documento
         else:
-            raise ValueError('CPF inválido!')
-        
-    def __str__(self):
-        return self.formatar_cpf()
+            raise ValueError('CPF invalido!')
 
-    def validar_cpf(self,documento):
-        if len(documento) == 11:
+    def __str__(self):
+        return self.formatar()
+    
+    def validar(self,documento):
           cpf =  CPF()
           return cpf.validate(documento) 
-        else:
-            raise ValueError('O CPF deve conter 11 dígitos!')
         
-    def formatar_cpf(self):
+    def formatar(self):
         mascara = CPF()
         return mascara.mask(self.cpf)
+    
+class CriarCNPJ():
+    def __init__(self, documento):
+        documento = str(documento)
+        if self.validar(documento):
+            self.cnpj = documento
+        else:
+            raise ValueError('CNPJ invalido!')
 
+    def __str__(self):
+        return self.formatar()
+
+    def validar(self,documento):
+          cnpj =  CNPJ()
+          return cnpj.validate(documento) 
+
+    def formatar(self):
+        mascara = CNPJ()
+        return mascara.mask(self.cnpj) 
+    
 # TESTE
-teste_cpf = Cpf('44705391802')
-print(teste_cpf)
+    
+doc = '39049714099' #CPF válido
+#doc = '39049714098' #CPF inválido
+#doc = '3904971409'  #CPF com menos de 11 digitos
+#doc = '74233403000117' #CNPJ válido
+#doc = '74233403000116' #CNPJ inválido
+#doc = '7423340300011' #CNPJ com menos de 14 digitos
+
+teste = Documento.criar_documento(doc)
+print(teste)
