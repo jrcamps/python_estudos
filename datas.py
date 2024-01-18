@@ -21,10 +21,13 @@ class DataCadastro:
         data_formatada = self.momento_cadastro.strftime('%d/%m/%Y %H:%M')
         return data_formatada
     
+    def tempo_cadastro(self):
+        return (datetime.today() + timedelta(days = 23, hours = 4)) - self.momento_cadastro
+    
 #TESTE
 cadastro = DataCadastro()
 print(cadastro.momento_cadastro)
 print(cadastro.get_mes_atual())
 print(cadastro.get_dia_da_semana())
 # print(cadastro.formatar_data())
-print(cadastro)
+print(cadastro.tempo_cadastro())
