@@ -5,7 +5,7 @@ class Veiculo:
         self._ligado = False
 
     def __str__(self):
-        return f'Marca: {self.marca} | Modelo: {self.modelo} | Estado: {'Ligado' if self._ligado == True else 'Desligado'}'
+        return f'Marca: {self.marca} | Modelo: {self.modelo} | Status: {'Ligado' if self._ligado == True else 'Desligado'}'
     
     def ligar_veiculo(self):
         self._ligado = True
